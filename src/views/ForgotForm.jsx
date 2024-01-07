@@ -1,0 +1,210 @@
+import React, { useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+import { LockOutlined, UserOutlined, SafetyOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Space } from "antd";
+import styled from "styled-components";
+import logo from "../assets/images/hacker.png";
+import fblg from "../assets/images/facebook.png";
+import gglg from "../assets/images/google.png";
+
+const SignUpForm = () => {
+  const navigation = useNavigate();
+  const [visible, setVisible] = useState(false);
+
+  const showModalFalse = () => {
+    setVisible(true);
+  };
+
+  const handleOk = () => {
+    setVisible(false);
+  };
+
+  const onFinish = (values) => {
+    const { email, otp, password, confirmPassword } = values;
+
+    // Kiểm tra xem trường email có được nhập hay không
+    if (email && otp && password && confirmPassword) {
+      alert("Sign In Success");
+      navigation("/signIn");
+    } else {
+      showModalFalse();
+    }
+  };
+
+  const openGmailTab = () => {
+    const yourEmail = "giahuydoduong@gmail.com"; // Thay thế bằng địa chỉ email của bạn
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${yourEmail}`;
+    window.open(gmailUrl, "_blank");
+  };
+
+  const openMessengerTab = () => {
+    const facebookProfileUrl = "100689157899236"; // Thay thế bằng địa chỉ Facebook của người dùng cụ thể
+    const messengerUrl = `https://www.facebook.com/messages/t/${facebookProfileUrl}`;
+    window.open(messengerUrl, "_blank");
+  };
+
+  const FormStyle = styled.div`
+    border: 0.1rem solid white;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10vh;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(50px);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    padding: 0.5rem;
+    font-size: 1rem;
+
+    &:hover {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 25rem;
+    }
+
+    @media screen and (max-width: 991px) {
+      width: 28rem;
+    }
+
+    @media screen and (max-width: 576px) {
+      width: 20rem;
+    }
+  `;
+
+  return (
+    <FormStyle className="container">
+      <img src={logo} alt="logo" className="w-28" />
+      <p className="text-white mb-0 mt-1 text-2xl">Forgot Password</p>
+      <Form
+        name="normal_login"
+        className="login-form"
+        style={{ width: "18rem" }}
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+      >
+        <Form.Item
+          className="my-0"
+          name="mail"
+          rules={[
+            {
+              required: true,
+              message: "Please input your Email!",
+            },
+          ]}
+        >
+          <div style={{ display: "flex" }}>
+            <Input
+              name="email"
+              style={{ borderRadius: "0.5rem 0 0 0.5rem" }}
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Enter your Email"
+            />
+            <Button
+              type="primary"
+              style={{
+                backgroundColor: "#478eff",
+                borderRadius: "0 0.5rem 0.5rem 0",
+              }}
+            >
+              Send Code
+            </Button>
+          </div>
+        </Form.Item>
+        <Form.Item
+          name="otp"
+          className="my-3"
+          rules={[
+            {
+              required: true,
+              message: "Please input your otp!",
+            },
+          ]}
+        >
+          <Input.Password
+            prefix={<SafetyOutlined className="site-form-item-icon" />}
+            placeholder="Enter OTP"
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          className="my-3"
+          rules={[
+            {
+              required: true,
+              message: "Please input your password!",
+            },
+          ]}
+        >
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            placeholder="Password"
+          />
+        </Form.Item>
+        <Form.Item
+          name="confirmPassword"
+          className="my-3"
+          rules={[
+            {
+              required: true,
+              message: "Please confirm your password!",
+            },
+          ]}
+        >
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            placeholder="Confirm Password"
+          />
+        </Form.Item>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button mt-1 border-1 border-white rounded-md text-lg pt-0"
+          style={{ width: "18rem", backgroundColor: "#478eff" }}
+        >
+          Change Password
+        </Button>
+      </Form>
+      <p className="text-white text-center mb-0 mt-2">Or</p>
+      <div className="login-third-service w-72">
+        <div
+          className="button-third flex border-1 border-white rounded-md p-0.5 items-center justify-center my-1 text-white"
+          style={{ backgroundColor: "#478eff" }}
+        >
+          <img src={gglg} alt="" className="w-4 h-auto" />
+          <button
+            className="ml-2"
+            onClick={openGmailTab}
+            style={{ backgroundColor: "#478eff" }}
+          >
+            Contact me via Google
+          </button>
+        </div>
+        <div
+          className="button-third flex border-1 border-white rounded-md p-0.5 items-center justify-center my-3 text-white"
+          style={{ backgroundColor: "#478eff" }}
+        >
+          <img src={fblg} alt="" className="w-4 h-auto" />
+          <button className="ml-2" onClick={openMessengerTab}>
+            Contact me via Facebook
+          </button>
+        </div>
+      </div>
+
+      <p className="text-white text-center">
+        Don't have account?{" "}
+        <a href="/signup" className="no-underline text-blue-500">
+          Sign Up
+        </a>
+      </p>
+    </FormStyle>
+  );
+};
+
+export default SignUpForm;

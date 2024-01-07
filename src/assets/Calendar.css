@@ -1,0 +1,43 @@
+/* Calendar.css */
+
+.calendar-container {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  overflow-x: auto; /* Cho phép cuộn ngang nếu nội dung tràn ra khỏi màn hình */
+}
+
+.month-header {
+  color: white;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden; /* Ẩn tràn nội dung ra khỏi container */
+}
+
+.calendar-day {
+  text-align: center;
+  padding: 10px;
+  color: white;
+  border: 1px solid transparent;
+  white-space: nowrap; /* Ngăn ngừa ngắn dòng nếu nội dung quá rộng */
+}
+
+.today {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+}
+
+.inactive {
+  color: gray; /* Ngày không thuộc tháng hiện tại */
+}
+
+.current-month {
+  border: 1px solid transparent;
+}
+
+.current-month:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
